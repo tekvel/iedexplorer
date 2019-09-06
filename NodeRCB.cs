@@ -452,7 +452,7 @@ namespace IEDExplorer
             {
                 if (_EntryID == null) _EntryID = (NodeData)FindChildNode("EntryID");
                 if (_EntryID != null)
-                    return (string)_EntryID.DataValue;
+                    return (string)_EntryID.StringValue;
                 else
                     return "";
             }
@@ -460,7 +460,7 @@ namespace IEDExplorer
             {
                 if (_EntryID == null) _EntryID = (NodeData)FindChildNode("EntryID");
                 if (_EntryID != null)
-                    _EntryID.DataValue = value;
+                    _EntryID.StringValue = value;
             }
         }
         public bool EntryID_present

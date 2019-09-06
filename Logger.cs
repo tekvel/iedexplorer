@@ -51,7 +51,12 @@ namespace IEDExplorer
             //verbosity = Severity.Debug;
             try
             {
-                tmpFile = /*Path.Combine(Path.GetTempPath(),*/ "MMS_log_file.txt";
+#if INNO_SETUP
+                tmpFile = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + "_MMS_log_file.txt");
+#else
+                tmpFile = "MMS_log_file.txt";
+
+#endif
                 stream = new FileStream(tmpFile, FileMode.Create, FileAccess.Write, FileShare.Read);
                 writer = new StreamWriter(stream);
                 sLog = this;

@@ -1065,7 +1065,7 @@ namespace IEDExplorer
 
             string rptdVarQuality = "";
             string rptdVarTimeQuality = "";
-            string rptdVarValue = "";
+            StringBuilder rptdVarValue = new StringBuilder("");
             string rptdVarTimestamp = "";
             string rptdVarDescription = "";
             string rptdVarPath = "";
@@ -1084,32 +1084,49 @@ namespace IEDExplorer
 
             rptdVarPath = nb[0].IecAddress;
 
-            foreach (NodeBase nbs in nb)
-            {
+            foreach (NodeBase nbs in nb) {
                 switch (nbs.Name)
                 {
+                    case "general":
+                        rptdVarValue.Append((nbs as NodeData).StringValue);
+                        break;
+                    case "dirGeneral":
+                        rptdVarValue.AppendFormat("/{0}", (nbs as NodeData).StringValue);
+                        break;
                     case "stVal":
                         if (nbs.IecAddress.Contains("XCBR") || nbs.IecAddress.Contains("XSWI"))
                         {
-                            rptdVarValue = (nbs as NodeData).StringValue;
-                            switch (rptdVarValue)
+                            String vals = (nbs as NodeData).StringValue;
+                            switch (vals)
                             {
                                 case "01":
-                                    rptdVarValue = "Open";
+                                    rptdVarValue.Append("Open");
                                     break;
                                 case "10":
-                                    rptdVarValue = "Closed";
+                                    rptdVarValue.Append("Closed");
                                     break;
                                 case "00":
                                 case "11":
-                                    rptdVarValue = "Bad Pos";
+                                    rptdVarValue.Append("Bad Pos");
                                     break;
                                 default:
                                     break;
                             }
                         }
                         else
-                            rptdVarValue = (nbs as NodeData).StringValue;
+                            rptdVarValue.Append((nbs as NodeData).StringValue);
+
+                        break;
+                    case "cVal":
+                        if (nbs.IecAddress.Contains("MMX")) {
+                            NodeData nbmag = (NodeData) nbs.GetActualChildNode();
+                            if (nbmag.Name == "mag") {
+                                NodeData nbf = (NodeData) nbmag.GetActualChildNode();
+                                rptdVarValue.Append(nbf.DataValue);
+                            }
+                            
+                        } else
+                            rptdVarValue.Append((nbs as NodeData).StringValue);
 
                         break;
                     case "q":
@@ -1119,9 +1136,10 @@ namespace IEDExplorer
                         rptdVarTimestamp = (nbs as NodeData).StringValue;
                         break;
                     default:
-                        rptdVarValue = (nbs as NodeData).StringValue;
+                        rptdVarValue.Append((nbs as NodeData).StringValue);
                         break;
                 }
+
             }
 
             NodeBase d = iecs.DataModel.ied.FindNodeByAddress(varName.Replace("$ST$", "$DC$"));
@@ -1140,7 +1158,7 @@ namespace IEDExplorer
 
             rptdVarTimeQuality = rptdVarTimestamp.Contains("Bad Time Quality") ? "T" : "";
 
-            iecs.Controller.FireNewReport(rptdVarQuality + rptdVarTimeQuality, rptdVarTimestamp, rptdVarPath, rptdVarDescription, rptdVarValue);
+            iecs.Controller.FireNewReport(rptdVarQuality + rptdVarTimeQuality, rptdVarTimestamp, rptdVarPath, rptdVarDescription, rptdVarValue.ToString());
             //return varName;
         }
 
@@ -1497,7 +1515,7 @@ namespace IEDExplorer
             else if (data.isOctet_stringSelected())
             {
                 iecs.logger.LogDebug("data.Octet_string != null");
-                (actualNode as NodeData).DataValue = System.Text.ASCIIEncoding.ASCII.GetString(data.Octet_string);
+                (actualNode as NodeData).DataValue = (data.Octet_string);
             }
             else if (data.isUnsignedSelected())
             {

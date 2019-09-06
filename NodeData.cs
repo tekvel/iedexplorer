@@ -248,7 +248,7 @@ namespace IEDExplorer
                         case scsm_MMS_TypeEnum.octet_string:
                             if (DataValue != null)
                             {
-                                byte[] ba = System.Text.Encoding.ASCII.GetBytes(DataValue.ToString());
+                                byte[] ba = (byte[])DataValue;
                                 switch (Name)
                                 {
                                     case "Owner":
@@ -349,7 +349,23 @@ namespace IEDExplorer
                                 DataValue = value;
                                 break;
                             case scsm_MMS_TypeEnum.octet_string:
-                                DataValue = Encoding.ASCII.GetBytes(value);
+                               if (Name == "EntryID") 
+                               {
+                                    byte[] bArr = new byte[] { 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0 };
+                                    String[] strsplit =  value.Split('-');
+                                    StringBuilder DataRet = new StringBuilder();
+                                    for (int isplit = 0; isplit < strsplit.Length; isplit++)
+                                    {
+                                        bArr[isplit] =  Convert.ToByte(strsplit[isplit], 16);
+                                    }
+                                    DataValue = bArr;
+                               }
+                               else 
+                               {
+                                    DataValue = value;
+                               }
+                               
+
                                 break;
                             case scsm_MMS_TypeEnum.unsigned:
                                 long uns;

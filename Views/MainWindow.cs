@@ -53,9 +53,13 @@ namespace IEDExplorer.Views
             this.Text = "IED Explorer 0.79g Exp SCL Server & GOOSE";
 
             logger.LogInfo("Starting main program ...");
-
+#if INNO_SETUP
+            ini = new IniFileManager(System.IO.Path.GetDirectoryName(Application.LocalUserAppDataPath) + "\\mruip.ini");
+            ieds = new IniFileManager(System.IO.Path.GetDirectoryName(Application.LocalUserAppDataPath) + "\\ieds.ini");
+#else
             ini = new IniFileManager(System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\mruip.ini");
             ieds = new IniFileManager(System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\ieds.ini");
+#endif
             GetMruIp();
             GetMruFiles();
             GetIedsDb();

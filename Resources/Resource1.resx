@@ -304,4 +304,22 @@
   <data name="page_copy" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>page_copy.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="toolStripButton_ExportCSV_Image" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>toolstripbutton_exportcsv.image.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="toolStripButton_GooseExplorer_Image" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>toolstripbutton_gooseexplorer.image.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="toolStripButton_GooseSender_Image" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>toolstripbutton_goosesender.image.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="toolStripButton_OpenScl_Image" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>toolstripbutton_openscl.image.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="toolStripButton_Pooling_Image" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>toolstripbutton_pooling.image.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="toolStripButton_Run_Image" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>toolstripbutton_run.image.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>
