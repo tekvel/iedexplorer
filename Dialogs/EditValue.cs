@@ -78,10 +78,7 @@ namespace IEDExplorer
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
-            if (data.Name == "EntryID") 
-            {
-                data.StringValue = this.textBox1.Text;
-            }
+            data.StringValue = this.textBox1.Text;
         }
 
         private void btSetZero_Click(object sender, EventArgs e)
