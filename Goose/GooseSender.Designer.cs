@@ -90,7 +90,7 @@
             // 
             // toolStripComboBox_NedDevices
             // 
-            this.toolStripComboBox_NedDevices.DropDownHeight = 50;
+            this.toolStripComboBox_NedDevices.DropDownHeight = 500;
             this.toolStripComboBox_NedDevices.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.toolStripComboBox_NedDevices.IntegralHeight = false;
             this.toolStripComboBox_NedDevices.MergeAction = System.Windows.Forms.MergeAction.Replace;
