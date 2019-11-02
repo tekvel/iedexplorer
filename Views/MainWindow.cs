@@ -50,7 +50,7 @@ namespace IEDExplorer.Views
             worker = new Scsm_MMS_Worker();
 
             wm = new WindowManager(dockPanel1, this);
-            this.Text = "IED Explorer 0.79h Exp SCL Server & GOOSE";
+            this.Text = "IED Explorer 0.79i Exp SCL Server & GOOSE";
 
             logger.LogInfo("Starting main program ...");
 #if INNO_SETUP

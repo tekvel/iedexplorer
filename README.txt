@@ -281,3 +281,8 @@ I've changed to storing octetstring as byte[].
 NodeData.StringValue and NodeRCB.EntryID properties are modified. I have tested this for EntryID.
 EditValue dialog is also changed to fit this problem.
 
+Service release 0.79i 2019/11/02
+Ticket resolved: #16 GooseSender: VLAN: VID and Priority settings don't work
+GOOSE Sender: When I set VLAN flag in GooseSender , VID and Priority do not follow the settings but remain fixed (VID = 50, Priority = 1).
+
+Fields Priority, CFI and VID are now followed when building packet.
