@@ -485,10 +485,15 @@ namespace IEDExplorer.Views
                         listsNode = e.Node;
                         item.Click += new EventHandler(OnAddNVLClick);
 
-                        item = menu.Items.Add("Enable All RCBs");
+                        item = menu.Items.Add("Enable All URCBs");
                         item.Tag = n;
                         listsNode = e.Node;
-                        item.Click += new EventHandler(OnEnableAllRCBsClick);
+                        item.Click += new EventHandler(OnEnableAllURCBsClick);
+
+                        item = menu.Items.Add("Enable All BRCBs");
+                        item.Tag = n;
+                        listsNode = e.Node;
+                        item.Click += new EventHandler(OnEnableAllBRCBsClick);
 
                         item = menu.Items.Add("Disable All RCBs");
                         item.Tag = n;
@@ -833,7 +838,7 @@ namespace IEDExplorer.Views
             d.Show(this);
         }
 
-        void OnEnableAllRCBsClick (object sender, EventArgs e)
+        void OnEnableAllURCBsClick (object sender, EventArgs e)
         {
             NodeLD ld = (NodeLD)(sender as ToolStripItem).Tag;
             Iec61850State iecsld = ld.GetIecs();
@@ -866,7 +871,7 @@ namespace IEDExplorer.Views
                             NodeData d = (NodeData)vl.urcb.Parent;
                             b = d.FindChildNode("Resv");
 
-                        } while (!(ur.Parent.Name.Contains("rcb") && ((Boolean)((NodeData)b).DataValue == false)));
+                        } while (!(ur.Parent.Name.Contains("urcb") && ((Boolean)((NodeData)b).DataValue == false)));
 
                         if (vl.urcb != null && ur != null) {
                             NodeData d = (NodeData)vl.urcb.Parent;
@@ -878,6 +883,92 @@ namespace IEDExplorer.Views
                                 n.DataValue = true;
                                 ndar.Add(n);
                             }
+                            if ((b = d.FindChildNode("DatSet")) != null) {
+                                NodeData n = new NodeData(b.Name);
+                                n.DataType = ((NodeData)b).DataType;
+                                n.DataValue = ((NodeData)b).DataValue;
+                                ndar.Add(n);
+                            }
+                            if ((b = d.FindChildNode("OptFlds")) != null) {
+                                NodeData n = new NodeData(b.Name);
+                                n.DataType = ((NodeData)b).DataType;
+                                n.DataValue = new byte[] { 0x7c, 0x00 };
+                                n.DataParam = 6;
+                                ndar.Add(n);
+                            }
+                            if ((b = d.FindChildNode("TrgOps")) != null) {
+                                NodeData n = new NodeData(b.Name);
+                                n.DataType = ((NodeData)b).DataType;
+                                n.DataValue = new byte[] { 0x74 };
+                                n.DataParam = 2;
+                                ndar.Add(n);
+                            }
+                            if ((b = d.FindChildNode("RptEna")) != null) {
+                                NodeData n = new NodeData(b.Name);
+                                n.DataType = ((NodeData)b).DataType;
+                                n.DataValue = true;
+                                ndar.Add(n);
+                            }
+                            if ((b = d.FindChildNode("GI")) != null) {
+                                NodeData n = new NodeData(b.Name);
+                                n.DataType = ((NodeData)b).DataType;
+                                n.DataValue = true;
+                                ndar.Add(n);
+                            }
+                            iecs.Send(ndar.ToArray(), d.CommAddress, ActionRequested.Write);
+
+                            enabledReports += ur.Parent.Name + "\r\n";
+                            enabledReportsCnt++;
+
+                            vl.Activated = true;
+
+                        }
+                    } else
+                        MessageBox.Show("Basic structure not found!");
+                }
+
+                MessageBox.Show("Enabled " + enabledReportsCnt.ToString() + ((enabledReportsCnt == 1) ? " report:\r\n\r\n" : " reports:\r\n\r\n") + enabledReports + "\r\n", "Enable All RCBs");
+            }
+        }
+        void OnEnableAllBRCBsClick(object sender, EventArgs e)
+        {
+            NodeLD ld = (NodeLD)(sender as ToolStripItem).Tag;
+            Iec61850State iecsld = ld.GetIecs();
+            NodeBase ur = null;
+            NodeBase b = null;
+            string enabledReports = "";
+            int enabledReportsCnt = 0;
+
+            if (iecsld != null) {
+                NodeBase[] nds = ld.GetChildNodes();
+
+                foreach (NodeBase nd in nds) {
+                    NodeVL vl = (NodeVL)nd;
+
+                    if (vl.Activated == true)
+                        continue;
+
+                    Iec61850State iecs = vl.GetIecs();
+
+                    ur = null;
+
+                    if (iecs != null) {
+                        do {
+                            ur = (NodeData)iecs.DataModel.ied.FindNodeByValue(scsm_MMS_TypeEnum.visible_string, vl.IecAddress, ref ur);
+
+                            if (ur == null) // Suitable URCB not found, list cannot be activated!                                                                                                                     
+                                break;
+
+                            vl.urcb = (NodeData)ur;
+                            NodeData d = (NodeData)vl.urcb.Parent;
+                            //b = d.FindChildNode("Resv");
+
+                        } while (!(ur.Parent.Name.Contains("brcb")));
+
+                        if (vl.urcb != null && ur != null) {
+                            NodeData d = (NodeData)vl.urcb.Parent;
+                            List<NodeData> ndar = new List<NodeData>();
+
                             if ((b = d.FindChildNode("DatSet")) != null) {
                                 NodeData n = new NodeData(b.Name);
                                 n.DataType = ((NodeData)b).DataType;
