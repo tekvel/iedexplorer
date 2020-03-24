@@ -244,9 +244,9 @@ namespace IEDExplorer
             VLanTaggedFrameLayer vlanLayer =
                 new VLanTaggedFrameLayer
                 {
-                    PriorityCodePoint = ClassOfService.Background,
-                    CanonicalFormatIndicator = false,
-                    VLanIdentifier = 50,
+                    PriorityCodePoint = (ClassOfService)Convert.ToInt32((string)gooseParameters["numericUpDown_VlanPrio"]),
+                    CanonicalFormatIndicator = (string)gooseParameters["comboBox_VlanCFI"] == "1" ? true : false,
+                    VLanIdentifier = Convert.ToUInt16((string)gooseParameters["numericUpDown_VlanVID"]),
                     EtherType = (EthernetType)0x88b8,
 
                 };

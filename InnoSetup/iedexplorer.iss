@@ -10,7 +10,7 @@ OutputDir=SetupDir
 OutputBaseFilename=IEDExplorer_setup
 
 [Files]
-Source: "..\bin\Release\IEDExplorer.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\bin\Release_INNO_SETUP\IEDExplorer.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\README.txt"; DestDir: "{app}"
 Source: "..\Iedexplorer.ico"; DestDir: "{app}"
 Source: "..\TreeViewAdv\Resources\check.bmp"; DestDir: "{app}\TreeViewAdv\Resources"; Flags: ignoreversion

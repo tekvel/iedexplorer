@@ -260,3 +260,29 @@ Service release 0.79f 2019/02/28
 
 Service release 0.79g 2019/07/17
 * Check bits in command dialogs now working
+
+Service release 0.79h 2019/10/08
+* Mireks contribution:
+* I've created InnoSetup project to create Setup.exe. For that reason I've added to project file INNO_SETUP define for contitional compilation.
+Logger.cs and MainWindow.cs are affected.
+This changes also alows to start multiple instances of IEDExplorer I've replaced tmpFile with random filename and IniFiles I've moved to LocalUserAppDataPath,
+but this is only active with INNO_SETUP defined in project file
+
+Scsm_MMS.cs:  Added parsing of structured data (i.e. Tr, Str) in ReportView.
+
+OctetString can't be stored as object(string) because of following error:
+  byte[] bin = { 0x58, 0x1f, 0x61, 0x5d, 0xc6, 0,0,0 };
+  object DataValue = System.Text.ASCIIEncoding.ASCII.GetString(bin);
+  byte[] bout = System.Text.ASCIIEncoding.ASCII.GetBytes((String)DataValue);
+  bin != bout
+
+for byte octet values > 0x7F after conversion with GetString and reverse GetBytes values are not properly converted.
+I've changed to storing octetstring as byte[].
+NodeData.StringValue and NodeRCB.EntryID properties are modified. I have tested this for EntryID.
+EditValue dialog is also changed to fit this problem.
+
+Service release 0.79i 2019/11/02
+Ticket resolved: #16 GooseSender: VLAN: VID and Priority settings don't work
+GOOSE Sender: When I set VLAN flag in GooseSender , VID and Priority do not follow the settings but remain fixed (VID = 50, Priority = 1).
+
+Fields Priority, CFI and VID are now followed when building packet.

@@ -251,7 +251,7 @@ namespace IEDExplorer.Views
             gseView.FormClosed += new FormClosedEventHandler(gseView_FormClosed);
             gseView.TabText = "GooseSender " + ++gseViewsCount;
             documentViews.Add(gseView);
-            gseView.Show(dockPanel, DockState.DockRight);
+            gseView.Show(dockPanel);//, DockState.DockRight);
         }
 
         void gseView_FormClosed(object sender, FormClosedEventArgs e)
