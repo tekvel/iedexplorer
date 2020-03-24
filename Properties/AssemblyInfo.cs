@@ -7,9 +7,9 @@ using System.Resources;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("IEDExplorer")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("MMS and Goose analyzer")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("None")]
+[assembly: AssemblyCompany("IEDExplorer")]
 [assembly: AssemblyProduct("IEDExplorer")]
 [assembly: AssemblyCopyright("Copyright © Pavel Charvat 2013")]
 [assembly: AssemblyTrademark("")]

@@ -2689,15 +2689,15 @@ namespace IEDExplorer
 
         public static DateTime ConvertFromUtcTime(byte[] utc_time, Object dataParam)
         {
-            long seconds;
+            ulong seconds;
             long millis;
 
             if (utc_time != null && utc_time.Length == 8)
             {
-                seconds = (utc_time[0] << 24) +
-                          (utc_time[1] << 16) +
-                          (utc_time[2] << 8) +
-                          (utc_time[3]);
+                seconds = (ulong)(((ulong)utc_time[0] << 24) +
+                          ((ulong)utc_time[1] << 16) +
+                          ((ulong)utc_time[2] << 8) +
+                          ((ulong)utc_time[3]));
 
                 millis = 0;
                 for (int i = 0; i < 24; i++)
@@ -2723,15 +2723,15 @@ namespace IEDExplorer
 
         public static DateTime ConvertFromUtcTime2(byte[] utc_time, Object dataParam)
         {
-            long seconds;
+            ulong seconds;
             long fractionOfSecond;
 
             if (utc_time != null && utc_time.Length == 8)
             {
-                seconds = (utc_time[0] << 24) +
-                          (utc_time[1] << 16) +
-                          (utc_time[2] << 8) +
-                          (utc_time[3]);
+                seconds = (ulong)((ulong)(utc_time[0] << 24) +
+                          ((ulong)utc_time[1] << 16) +
+                          ((ulong)utc_time[2] << 8) +
+                          ((ulong)utc_time[3]));
 
                 fractionOfSecond = (utc_time[4] << 16);
                 fractionOfSecond += (utc_time[5] << 8);
