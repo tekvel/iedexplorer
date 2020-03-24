@@ -1369,9 +1369,12 @@
     <EmbeddedResource Include="Embed\PcapDotNet.Core.Extensions.dll" />
     <EmbeddedResource Include="Embed\PcapDotNet.Packets.dll" />
     <Content Include="Iedexplorer.ico" />
+    <Content Include="InnoSetup\iedexplorer.iss" />
+    <Content Include="InnoSetup\SetupDir\IEDExplorer_setup.exe" />
     <Content Include="README.txt" />
     <Content Include="Resources\calculator.png" />
     <Content Include="Resources\computer.png" />
+    <None Include=".editorconfig" />
     <None Include="app.config" />
     <None Include="Resources\page_white_database.png" />
     <None Include="Resources\page_white_put.png" />
@@ -1467,9 +1470,7 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="InnoSetup\SetupDir\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -62,7 +62,11 @@ namespace org.mkulu.config {
         public IniFileManager(string fileToManage) {
             configFileName = fileToManage;
             fileIsEncrypted = false;
-            cacheIniFile();
+            try {
+                cacheIniFile();
+            } catch (Exception ex) {
+                System.Windows.Forms.MessageBox.Show(configFileName + "\r" + ex.Message + "\r" + "or file is corrupted", "Check ini file");
+            }
         }
 
         public IniFileManager(string fileToManage, string key) {

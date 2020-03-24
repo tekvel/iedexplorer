@@ -422,7 +422,7 @@ namespace IEDExplorer
 
             if (((sender as NumericUpDown).Tag != null) && ((sender as NumericUpDown).Tag is numUpDownData))
             {
-                ((sender as NumericUpDown).Tag as numUpDownData).RestoreOnEnterVal = true;
+                ((sender as NumericUpDown).Tag as numUpDownData).RestoreOnEnterVal = false;     // was true MICHAL
                 ((sender as NumericUpDown).Tag as numUpDownData).ValOnEnter = (sender as NumericUpDown).Value;
             }            
         }
@@ -459,7 +459,7 @@ namespace IEDExplorer
             if (e.KeyChar == (char)27)
             {
                 if (((sender as NumericUpDown).Tag != null) && ((sender as NumericUpDown).Tag is numUpDownData))
-                    ((sender as NumericUpDown).Tag as numUpDownData).RestoreOnEnterVal = true;
+                    ((sender as NumericUpDown).Tag as numUpDownData).RestoreOnEnterVal = false;     // was true MICHAL
                 
                 ((sender as NumericUpDown).Tag as numUpDownData).RestoreValueChangedHandler = true;
                     (sender as NumericUpDown).ValueChanged -= new EventHandler(numericUpDown_ValueChanged);
