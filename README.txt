@@ -286,3 +286,14 @@ Ticket resolved: #16 GooseSender: VLAN: VID and Priority settings don't work
 GOOSE Sender: When I set VLAN flag in GooseSender , VID and Priority do not follow the settings but remain fixed (VID = 50, Priority = 1).
 
 Fields Priority, CFI and VID are now followed when building packet.
+
+Service release 0.79j 2020/03/28
+- Server DataObjects not sorted (keep ICD/SCD order)
+- Enhancements thanks to Mirek Sobczak
+	* IniFileManager.cs try/catch block when ini file is corrupted
+	* GooseControl.* NumericUpDown don't needs to confirmed with Enter Key
+	* Scsm_MMS.cs seconds variable in Timestamp now is usigned acording to IEC61850 v2
+	* .gitignore contains additional file types to ignore. this helps during git push
+	* IedTreeView.cs - Enable All RCB is splited into Enable All URCB and Enable All BRCB
+	* MainWindow.cs - version info 'i' -> 'j'
+	* New InnoSetup IEDExplorer_setup.exe
