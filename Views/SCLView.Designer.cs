@@ -47,6 +47,9 @@
             this.column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -64,7 +67,9 @@
             this.toolStripButtonCollapseAll,
             this.toolStripSeparator1,
             this.toolStripLabelServers,
-            this.toolStripButton1});
+            this.toolStripButton1,
+            this.toolStripSeparator2,
+            this.toolStripButton2});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(634, 25);
@@ -187,7 +192,8 @@
             this.column4,
             this.column5,
             this.column6,
-            this.column7});
+            this.column7,
+            this.column8});
             this.dataGridView_data.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView_data.Location = new System.Drawing.Point(0, 0);
             this.dataGridView_data.Name = "dataGridView_data";
@@ -233,6 +239,27 @@
             this.column7.Name = "column7";
             this.column7.Width = 69;
             // 
+            // column8
+            // 
+            this.column8.HeaderText = "Cdc";
+            this.column8.Name = "column8";
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripButton2
+            // 
+            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
+            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton2.Name = "toolStripButton2";
+            this.toolStripButton2.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton2.Text = "Save data";
+            this.toolStripButton2.TextAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
+            // 
             // SCLView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -271,12 +298,15 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripLabel toolStripLabelServers;
         private MyDataGridView dataGridView_data;
+        private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.DataGridViewTextBoxColumn column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn column5;
         private System.Windows.Forms.DataGridViewTextBoxColumn column6;
         private System.Windows.Forms.DataGridViewTextBoxColumn column7;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn column8;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripButton toolStripButton2;
     }
 }

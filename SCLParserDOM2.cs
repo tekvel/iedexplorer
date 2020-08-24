@@ -145,7 +145,10 @@ namespace IEDExplorer
                                 subtree = subtree.AddChildNode(new NodeFC(fc));
                         }
                         else if (pnb is NodeDO)
+                        {
                             subtree = subtree.AddChildNode(new NodeDO(pnb.Name));
+                            (subtree as NodeDO).SCL_Cdc = (pnb as NodeDO).SCL_Cdc;
+                        }
                         else if (pnb is NodeRCB)
                         {
                             subtree = subtree.AddChildNode(new NodeRCB(pnb.Name));
@@ -347,6 +350,7 @@ namespace IEDExplorer
                     {
                         NodeBase doType = _dataObjectTypes.Single(dot => dot.Name.Equals((dataObject as NodeDO).SCL_Type));
                         NodeBase ndataObject = logicalNode.AddChildNode(new NodeDO(dataObject.Name));
+                        (ndataObject as NodeDO).SCL_Cdc = (doType as NodeDO).SCL_Cdc;
                         CreateSDO_DA(ndataObject, doType);
                     }
                     catch (Exception e)
@@ -385,6 +389,7 @@ namespace IEDExplorer
                     }
                     NodeDO subDataObject = new NodeDO(dataAttribute.Name);
                     subDataObject.SCL_ArraySize = (dataAttribute as NodeDO).SCL_ArraySize;
+                    subDataObject.SCL_Cdc = (subDoType as NodeDO).SCL_Cdc;
 
                     dataObject.AddChildNode(subDataObject);
                     if (subDataObject.SCL_ArraySize > 0)
@@ -394,6 +399,7 @@ namespace IEDExplorer
                             NodeDO arrDataObject = new NodeDO("[" + i.ToString() + "]");
                             subDataObject.AddChildNode(arrDataObject);
                             arrDataObject.SCL_UpperDOName = dataObject.Name;
+                            arrDataObject.SCL_Cdc = subDataObject.SCL_Cdc;
 
                             foreach (var dataAttribute2 in subDoType.GetChildNodes())
                             {
@@ -602,6 +608,7 @@ namespace IEDExplorer
             foreach (XElement el in elements)
             {
                 NodeDO dataObject = new NodeDO(el.Attribute("id").Value);
+                dataObject.SCL_Cdc = el.Attribute("cdc") == null ? "" : el.Attribute("cdc").Value;
                 // SDOs
                 foreach (XElement sdoel in el.Elements(ns + "SDO"))
                 {
@@ -612,6 +619,8 @@ namespace IEDExplorer
                     subDataObject.SCL_ArraySize = cnt;
                     if (sdoel.Attribute("type") != null)
                         subDataObject.SCL_Type = sdoel.Attribute("type").Value;
+
+                    subDataObject.SCL_Cdc = sdoel.Attribute("cdc") == null ? "" : sdoel.Attribute("cdc").Value;
 
                     dataObject.AddChildNode(subDataObject);
                 }

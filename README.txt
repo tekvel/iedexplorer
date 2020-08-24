@@ -297,3 +297,6 @@ Service release 0.79j 2020/03/28
 	* IedTreeView.cs - Enable All RCB is splited into Enable All URCB and Enable All BRCB
 	* MainWindow.cs - version info 'i' -> 'j'
 	* New InnoSetup IEDExplorer_setup.exe
+
+Service release 0.79k 2020/08/24
+- Enhancement: SCL data marked with CDC name from SCL file (specifically suitable for SIEMENS TOOLBOX II/SICAM data input)

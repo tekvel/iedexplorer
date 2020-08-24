@@ -23,16 +23,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
-using IEDExplorer.Resources;
-using IEC61850.Server;
-using System.Threading;
+using System.IO;
 
 namespace IEDExplorer.Views
 {
@@ -368,7 +362,7 @@ namespace IEDExplorer.Views
             if (n.GetChildNodes().Length > 0)
             {
                 dataGridView_data.Rows.Add(
-                    new string[] { "------------- CHILD NODES -------------", "-------------", "-------------", "-------------", "-------------", "-------------" });
+                    new string[] { "------------- CHILD NODES -------------", "-------------", "-------------", "-------------", "-------------", "-------------", "-------------" });
                 recursiveAddLine(n, e.Node);
             }
             dataGridView_data.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCells | DataGridViewAutoSizeColumnsMode.ColumnHeader);
@@ -435,7 +429,7 @@ namespace IEDExplorer.Views
                     new string[]
                     {
                         n.IecAddress, type, val,
-                        n.CommAddress.Domain, n.CommAddress.LogicalNode, n.CommAddress.VariablePath
+                        n.CommAddress.Domain, n.CommAddress.LogicalNode, n.CommAddress.VariablePath, getCdc(n)
                     };
                 (n as NodeData).ValueTag = dgvr;
                 return dgvr;
@@ -459,10 +453,27 @@ namespace IEDExplorer.Views
                     val = (n as NodeFile).ReportedSize.ToString();
                 return new string[] { n.Name, n.ToString(), val, (n as NodeFile).FullName };
             }
+            else if (n is NodeDO)
+                return
+                    new string[] { n.IecAddress, n.ToString(), "", n.CommAddress.Domain, n.CommAddress.LogicalNode, n.CommAddress.VariablePath, getCdc(n) };
             else if (n != null)
                 return
                     new string[] { n.IecAddress, n.ToString(), "", n.CommAddress.Domain, n.CommAddress.LogicalNode, n.CommAddress.VariablePath };
             return null;
+        }
+
+        private string getCdc(NodeBase data)
+        {
+            NodeBase b = data;
+            while (b != null)
+            {
+                if (b is NodeDO)
+                {
+                    return (b as NodeDO).SCL_Cdc;
+                }
+                b = b.Parent;
+            }
+            return "";
         }
 
         private void toolStripButtonCollapseAll_Click(object sender, EventArgs e)
@@ -685,6 +696,58 @@ namespace IEDExplorer.Views
         private void dataGridView_data_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             ;
+        }
+
+        private void toolStripButton2_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "txt files (*.txt)|*.txt";
+            if (saveFileDialog.ShowDialog() != DialogResult.OK)
+            {
+                return;
+            }
+            string filename = saveFileDialog.FileName;
+
+            try
+            {
+                StreamWriter file = new StreamWriter(filename, false);
+                List<string> line = new List<string>();
+                foreach (DataGridViewColumn ch in dataGridView_data.Columns)
+                {
+                    line.Add(ch.HeaderText);
+                }
+                writeLine(line, file);
+                line.Clear();
+                foreach (DataGridViewRow lvi in dataGridView_data.Rows)
+                {
+                    foreach (DataGridViewCell sublvi in lvi.Cells)
+                    {
+                        if (sublvi.Value != null)
+                            line.Add(sublvi.Value.ToString());
+                        else
+                            line.Add("");
+                    }
+                    writeLine(line, file);
+                    line.Clear();
+                }
+                file.Close();
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show("Cannot open file " + filename + " for output! Detail: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+        }
+
+        void writeLine(List<string> line, StreamWriter file)
+        {
+            for (int i = 0; i < line.Count; i++)
+            {
+                file.Write(line[i]);
+                if (i != line.Count - 1) file.Write("\t");
+            }
+            file.WriteLine();
         }
 
     }

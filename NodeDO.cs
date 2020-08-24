@@ -28,6 +28,7 @@ namespace IEDExplorer
     class NodeDO : NodeData
     {
         private string _type = "";
+        private string _cdc = "";
 
         public int SCL_ArraySize { get; set; }
 
@@ -35,6 +36,12 @@ namespace IEDExplorer
         {
             get { return _type; }
             set { _type = value; }
+        }
+
+        public string SCL_Cdc
+        {
+            get { return _cdc; }
+            set { _cdc = value; }
         }
 
         public string SCL_UpperDOName { get; set; }
