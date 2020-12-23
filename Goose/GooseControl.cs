@@ -187,7 +187,7 @@ namespace IEDExplorer
 
                                                               if (!this.checkBox_SqNumLock.Checked)
                                                               {
-                                                                  this.numericUpDown_SqNum.Value = 1;
+                                                                  this.numericUpDown_SqNum.Value = 0;
                                                                   gooseParameters["numericUpDown_SqNum"] = this.numericUpDown_SqNum.Value.ToString();
                                                               }                                     
                                                           }
