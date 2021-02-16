@@ -259,7 +259,7 @@ namespace IEDExplorer
                         if (cPar.interlockCheck)
                             check |= intl;
                         n.DataValue = new byte[] { check };
-                        n.DataParam = ((NodeData)b).DataParam;
+                        n.DataParam = 6; // hardcoded for check DA
                         ndar.Add(n);
                     }
                     iecs.Send(ndar.ToArray(), d.CommAddress, how);
